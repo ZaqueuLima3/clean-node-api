@@ -1,6 +1,14 @@
+sudo: false
+
 language: node_js
 node_js:
-  - 12
-  npm test
+  - node
+install:
+  - npm ci
+script:
+  - npm run lint
+  - npm run test:coverall
 cache:
   npm: false
+notifications:
+  email: false
