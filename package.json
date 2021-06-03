@@ -6,10 +6,11 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "test": "jest --passWithNoTests --silent --noStackTrace",
-    "test:verbose": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch",
-    "test:staged": "npm test"
+    "test:staged": "npm test",
+    "test:ci": "npm test -- --coverage"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
