@@ -5,6 +5,7 @@
   "author": "Zaqueu Santos <zaqueulima1@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "test": "jest",
     "test:staged": "jest"
   },
