@@ -12,6 +12,7 @@ const makeCryptStub = (): Crypt => {
       return Promise.resolve('encrypted_password')
     }
   }
+
   return new CryptStub()
 }
 
@@ -35,5 +36,19 @@ describe('AddAccountDbUseCase', () => {
     }
     await sut.execute(accountData)
     expect(encryptSpy).toHaveBeenCalledWith(accountData.password)
+  })
+
+  test('Should throw if Crypt throws', async () => {
+    const { sut, cryptStub } = makeSut()
+    jest.spyOn(cryptStub, 'encrypt').mockReturnValueOnce(
+      Promise.reject(new Error())
+    )
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
+    }
+    const promise = sut.execute(accountData)
+    await expect(promise).rejects.toThrow()
   })
 })
