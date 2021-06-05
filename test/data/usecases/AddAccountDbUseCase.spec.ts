@@ -1,9 +1,13 @@
 import { AddAccountDbUseCase } from '../../../src/data/usecases/addaccount/AddAccountDbUseCase'
 import { Crypt } from '../../../src/data/protocols/Crypt'
+import { AddAccountModel } from '../../../src/domain/usecases/AddAccount'
+import { AccountModel } from '../../../src/domain/model/AccountModel'
+import { AddAccountRepository } from '../../../src/data/protocols/AddAccountRepository'
 
 interface SutTypes {
   sut: AddAccountDbUseCase
   cryptStub: Crypt
+  addAccountRepositoryStub: AddAccountRepository
 }
 
 const makeCryptStub = (): Crypt => {
@@ -15,12 +19,29 @@ const makeCryptStub = (): Crypt => {
   return new CryptStub()
 }
 
+const makeAddAccountRepository = (): AddAccountRepository => {
+  class AddAccountRepositoryStub implements AddAccountRepository {
+    async add (accountData: AddAccountModel): Promise<AccountModel> {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'encrypted_password'
+      }
+      return Promise.resolve(fakeAccount)
+    }
+  }
+  return new AddAccountRepositoryStub()
+}
+
 const makeSut = (): SutTypes => {
   const cryptStub = makeCryptStub()
-  const sut = new AddAccountDbUseCase(cryptStub)
+  const addAccountRepositoryStub = makeAddAccountRepository()
+  const sut = new AddAccountDbUseCase(addAccountRepositoryStub, cryptStub)
   return {
     sut,
-    cryptStub
+    cryptStub,
+    addAccountRepositoryStub
   }
 }
 
@@ -49,5 +70,21 @@ describe('AddAccountDbUseCase', () => {
     }
     const promise = sut.execute(accountData)
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should call AddAccountRepository with correct values', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut()
+    const addSpy = jest.spyOn(addAccountRepositoryStub, 'add')
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
+    }
+    await sut.execute(accountData)
+    expect(addSpy).toHaveBeenCalledWith({
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'encrypted_password'
+    })
   })
 })
