@@ -1,5 +1,5 @@
-import { AddAccountDbUseCase } from './AddAccountDbUseCase'
-import { Crypt } from '../../protocols/Crypt'
+import { AddAccountDbUseCase } from '../../../src/data/usecases/addaccount/AddAccountDbUseCase'
+import { Crypt } from '../../../src/data/protocols/Crypt'
 
 interface SutTypes {
   sut: AddAccountDbUseCase
@@ -12,7 +12,6 @@ const makeCryptStub = (): Crypt => {
       return Promise.resolve('encrypted_password')
     }
   }
-
   return new CryptStub()
 }
 
