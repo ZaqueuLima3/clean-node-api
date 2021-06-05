@@ -12,10 +12,9 @@ export class AddAccountDbUseCase implements AddAccount {
 
   async execute (accountData: AddAccountModel): Promise<AccountModel> {
     const encryptedPassword = await this.crypt.encrypt(accountData.password)
-    await this.addAccountRepository.add({
+    return this.addAccountRepository.add({
       ...accountData,
       password: encryptedPassword
     })
-    return Promise.resolve(null)
   }
 }
