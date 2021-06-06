@@ -1,8 +1,8 @@
-import { AddAccountDbUseCase } from '../../../src/data/usecases/addaccount/AddAccountDbUseCase'
-import { Crypt } from '../../../src/data/protocols/Crypt'
-import { AddAccountModel } from '../../../src/domain/usecases/AddAccount'
-import { AccountModel } from '../../../src/domain/model/AccountModel'
-import { AddAccountRepository } from '../../../src/data/protocols/AddAccountRepository'
+import { AddAccountDbUseCase } from '@/data/usecases/addaccount/AddAccountDbUseCase'
+import { Crypt } from '@/data/protocols/Crypt'
+import { AddAccountModel } from '@/domain/usecases/AddAccount'
+import { AccountModel } from '@/domain/model/AccountModel'
+import { AddAccountRepository } from '@/data/protocols/AddAccountRepository'
 
 interface SutTypes {
   sut: AddAccountDbUseCase
