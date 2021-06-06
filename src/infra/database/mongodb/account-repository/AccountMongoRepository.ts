@@ -9,11 +9,7 @@ export class AccountMongoRepository implements AddAccountRepository {
       AccountMongoRepository.constants.ACCOUNT_COLLECTION_NAME
     )
     const result = await accountCollection.insertOne(accountData)
-    const { _id, ...accountWithoutId } = result.ops[0]
-    return {
-      id: _id,
-      ...accountWithoutId
-    }
+    return MongoHelper.mapToModel<AccountModel>(result.ops[0])
   }
 
   static readonly constants = {
