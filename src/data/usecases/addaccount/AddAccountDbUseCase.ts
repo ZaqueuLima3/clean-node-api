@@ -1,7 +1,7 @@
-import { AddAccount, AddAccountModel } from '../../../domain/usecases/AddAccount'
-import { AccountModel } from '../../../domain/model/AccountModel'
-import { Crypt } from '../../protocols/Crypt'
-import { AddAccountRepository } from '../../protocols/AddAccountRepository'
+import { AddAccount, AddAccountModel } from '@/domain/usecases/AddAccount'
+import { AccountModel } from '@/domain/model/AccountModel'
+import { Crypt } from '@/data/protocols/Crypt'
+import { AddAccountRepository } from '@/data/protocols/AddAccountRepository'
 
 export class AddAccountDbUseCase implements AddAccount {
   constructor (
