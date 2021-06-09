@@ -1,6 +1,6 @@
 import { badRequest, serverError, success } from '@/presentation/helpers/httpHelper'
 import { Controller } from '@/presentation/protocols/Controller'
-import { httpRequest, HttpResponse } from '@/presentation/protocols/http'
+import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 import { EmailValidator } from '@/presentation/protocols/EmailValidator'
 import { InvalidParamError, MissingParamError } from '@/presentation/errors'
 import { SignUpControllerRequest } from '@/presentation/protocols/SignUpControllerRequest'
@@ -13,7 +13,7 @@ export class SignUpController implements Controller {
   ) {
   }
 
-  async handle (httpRequest: httpRequest<SignUpControllerRequest>): Promise<HttpResponse> {
+  async handle (httpRequest: HttpRequest<SignUpControllerRequest>): Promise<HttpResponse> {
     try {
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
       for (const field of requiredFields) {
