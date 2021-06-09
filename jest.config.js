@@ -1,8 +1,12 @@
-export default {
-  roots: ['<rootDir>/test'],
+module.exports = {
+  roots: [
+    '<rootDir>/test',
+    '<rootDir>/test-application'
+  ],
   clearMocks: true,
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts'
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/main/**'
   ],
   collectCoverage: true,
   coverageDirectory: 'coverage',
